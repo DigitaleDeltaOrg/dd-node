@@ -1,0 +1,28 @@
+netcdf timeseries {
+dimensions:
+    {% for ts in timeseries %}
+    {% set i = loop.index %}
+	time{{ i }} = UNLIMITED ;
+	{% endfor %}
+variables:
+    {% for ts in timeseries %}
+    {% set i = loop.index %}
+	long time{{ i }}(time{{ i }}) ;
+		time{{ i }}:standard_name = "time" ;
+		time{{ i }}:long_name = "time" ;
+		time{{ i }}:units = "milliseconds since the epoch" ;
+	float value{{ i }}(time{{ i }}) ;
+		value{{ i }}:standard_name = "{{ ts.name }}" ;
+		value{{ i }}:long_name = "{{ ts.description or ts.name }}" ;
+		value{{ i }}:units = "{{ ts.observation_type.unit }}" ;
+	{% endfor %}
+data:
+    {% for ts in timeseries %}
+    {% set i = loop.index %}
+    {% set events = ts.get_events(start, end, fields) %}
+    {% if events %}
+    time{{ i }} = {% for event in events %}{{ event['timestamp'] }}{% if not loop.last %}, {% endif %}{% endfor %} ;
+    value{{ i }} = {% for event in events %}{{ event['value'] }}{% if not loop.last %}, {% endif %}{% endfor %} ;
+    {% endif %}
+	{% endfor %}
+}

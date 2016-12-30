@@ -1,0 +1,96 @@
+# From https://github.com/github/gitignore/blob/master/Python.gitignore
+
+# Pyc/pyo files.
+*.py[co]
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+coverage
+.tox
+nosetests.xml
+cobertura-coverage.xml
+htmlcov
+jshint.xml
+coverage.xml
+.noseids
+
+#Translations
+# *.mo
+# ^^^ No, django needs the .mo files as it doesn't compile them on the fly.
+
+#Mr Developer
+.mr.developer.cfg
+src
+
+# Ignore generated config files
+etc/*.nginx.conf
+etc/*.logrotate
+
+# vim, emacs and pycharm
+*.swp
+*~
+#*\.#*
+#
+.idea
+
+# Mac OS X users
+.DS_Store
+
+# buildout
+buildout.cfg
+development.cfg
+
+# js installs
+vendor/
+node_modules/
+.grunt/
+_SpecRunner.html
+tmp/
+dist/
+templates.js
+npm-debug.log
+
+# PyDev / Eclipse
+.project
+.pydevproject*
+.settings/
+
+# ignore generated font directories
+lizard_nxt/client/static/fonts/
+
+# Django local settings
+lizard_nxt/settings/localsettings.py
+
+# Celery
+celerybeat-schedule
+
+# vagrant
+.vagrant
+Vagrantfile
+
+# git submodules
+provisioning/inframan/
+# when symlinked
+provisioning/inframan
+
+# localhost group_vars
+deploy/group_vars/localhost
+
+# data
+data

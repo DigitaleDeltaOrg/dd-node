@@ -1,0 +1,143 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Lizard</title>
+
+    <link rel="stylesheet" type='text/css'
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type='text/css'
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel='stylesheet'>
+    <link rel="stylesheet" type="text/css"
+          href="{% static "lizard-bootstrap.css" %}">
+    {% block css %}
+    {% endblock %}
+  </head>
+
+  <body>
+
+    {% block branding %}
+    <div class="branding pull-left">
+      <a href="/">
+        <img src="{% static "LogoLizard_def_website.png" %}" alt="Lizard" />
+      </a>
+    </div>
+    {% endblock %}
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button"
+                  class="navbar-toggle"
+                  data-toggle="collapse"
+                  data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-left">
+              {% block apps %}{% endblock %}
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <i id="" class="fa fa-user" style="font-size:1.2em;"></i>
+                  {{ user.first_name }} <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="hidden-xs help"
+                       href="https://www.lizard.net/support"
+                       title="{% trans 'Vragen en handleiding' %}"
+                       target="_blank">
+                      <i class="fa fa-question" style="font-size: 1.2em"></i>
+                      Help
+                    </a>
+                  </li>
+                  <li class="visible-xs visible-sm visible-md visible-lg">
+                    <a class="user"
+                       rel="tooltip"
+                       data-toggle="tooltip"
+                       data-placement="left"
+                       title="{% trans 'Edit profile' %}"
+                       href="http://sso.lizard.net/edit_profile/">
+                      <div class="" id="username">
+                        <i class="fa fa-edit"></i>
+                        Edit profile
+                      </div>
+                    </a>
+                  </li>
+                  <li role="separator" class="divider"></li>
+                  <li class="visible-xs visible-sm visible-md visible-lg">
+                    <a class="user logout"
+                       href="#"
+                       rel="tooltip"
+                       data-toggle="tooltip"
+                       data-placement="left"
+                       title="{% trans 'Logout' %}"
+                       onclick="(function () {
+
+                          window.location = '/accounts/logout/?domain=' +
+                            window.location.protocol + '//' + window.location.host +
+                            '/&next=' +
+                            window.location.href;
+
+                        }())">
+                        <div class=""
+                             title="{% trans 'Logout' %}"
+                             rel="tooltip"
+                             data-toggle="tooltip"
+                             data-placement="left"
+                             id="username">
+                          <i id=""
+                             class="fa fa-power-off"></i>
+                           Uitloggen
+                        </div>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            {% else %}
+              <li>
+                <a class="hidden-xs help"
+                   href="https://www.lizard.net/support"
+                   title="{% trans 'Vragen en handleiding' %}"
+                   target="_blank">
+                  <i class="fa fa-question" style="font-size: 1.2em"></i>
+                </a>
+              </li>
+              <li class="clickable">
+                <a onclick="(function () {
+
+                    window.location = '/accounts/login/?domain=' +
+                      window.location.protocol + '//' + window.location.host +
+                      '/&next=' +
+                      window.location.href;
+
+                  }())"
+                  title="{% trans 'Login' %}">
+                  <i id="" class="fa fa-user" style="font-size:1.2em;"></i>
+                  Inloggen
+                </a>
+              </li>
+            {% endif %}
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    {% block javascript_body %}
+    {% endblock %}
+  </body>
+</html>
